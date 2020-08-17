@@ -142,4 +142,4 @@ spec:
 
 ```
 
-By using -c parameter, if the broken CheckItem being has implements Corrector interface, the configuration would be corrected automatically. The corrected configuration is stored in the file "coorected.yaml"
+By using -c parameter, if the broken CheckItem has implements Corrector interface, the configuration would be corrected automatically. The corrected configuration will be stored in the file "coorected.yaml"
