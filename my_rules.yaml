@@ -1,0 +1,12 @@
+rules:
+- name: spot
+  checkItems:
+  - RunningOnDifferentNodes
+  - WithGracefulTermination
+  - WithHealthCheck
+  - WithResourceRequestAndLimit
+- name: normal
+  checkItems:
+  - WithHealthCheck
+  - WithResourceRequestAndLimit
+  - WithReadiness
