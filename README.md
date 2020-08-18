@@ -4,22 +4,22 @@
 
 ### Introduction
 
-In CI/CD process, we can leverage some checking tools such as, Checkstyle, FindBugs to enforce the best coding practices in the integration phrase. "kcheck" is the checking tool to enforce the best practices of kubernetes configuration in the deployment phrase. 
+In CI/CD process, we can leverage some checking tools such as Checkstyle, FindBugs to enforce the best coding practices in the integration phase. "kcheck" is the checking tool to enforce the best practices of kubernetes configuration in the deployment phrase. 
 Before jumping into the project, let’s talk about some best practices of your daily Kubernetes deployments.
 
 ### Best practices of the Kubernetes deployment
 
-First of the all, a good deployment on Kubernetes, especially when running in cloud, should always makes your service prepare well for losing nodes.
-In Kubernetes world, containers are the essential elements of a service/application. To improve your service/application’s availability, you should make sure the right things always are done in the each stage of the container lifecycle.
+First of all, a good deployment on Kubernetes, especially when running in cloud, should always make your service prepare well for losing nodes.
+In Kubernetes world, containers are the essential elements of a service/application. To improve your service/application’s availability, you should make sure the right things always are done in each stage of the container lifecycle.
 
 **1 Readiness Probe is required** 
 
 Readiness Probe is to inform the Kubernetes when the pod is ready, and then the pod could be put behind the load balance. The kubelet uses readiness probes to know when a container is ready to start accepting traffic. A Pod is considered ready when all of its containers are ready.
-Readiness probe is foundamental to provide an available service. Without readiness probe, the customer’s requests might be dispatched to the unready pods. So, even the very basic kubernetes functions, such as “zero downtime rolling update” and HPA, will be screwed up. For “rolling update”, the strategy settings “maxUnavailable” and “maxSurge” would be ineffective for treating the unready pod as ready.
+Readiness probe is fundamental to provide an available service. Without readiness probe, the customer’s requests might be dispatched to the unready pods. So, even the very basic kubernetes functions, such as “zero downtime rolling update” and HPA, will be screwed up. For “rolling update”, the strategy settings “maxUnavailable” and “maxSurge” would be ineffective for treating the unready pod as ready.
 
 **2 Liveness Probe is required**
 
-Liveness is to make sure the pod is in the healthy state. Just like the readiness probe, liveness probe is also critical to the availability of the service. The same as what I mentioned above about readiness probe, it relates to “rolling update” and HPA. Additionally, Kubernetes uses liveness probes to know when to restart a container. Restarting a container in the unhealthy state can help to make the application more available despite bugs. It is the typical recovery oriented solution.
+Liveness is to make sure the pod is in the healthy state. Just like the readiness probe, liveness probe is also critical to the availability of the service. The same as what I mentioned above about readiness probe, it relates to “rolling update” and HPA. Additionally, Kubernetes uses liveness probes to know when to restart a container. Restarting a container in the unhealthy state can help to make the application more available despite bugs. It is a typical recovery oriented solution.
 (More details about readiness and liveness, please, see also: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
 **3 Termination needs to be handled carefully**
@@ -35,7 +35,7 @@ This prevents the pod from being starved of resources while also preventing CPU/
 In some cases, it is better to make our pods be scheduled on the different nodes. This can minimize the loss of the service capacity which is caused by the unexpected terminations of the nodes. For example, we run our services on AWS spot instances. 
 In kubernetes, we can use pod affinity to instruct kubernetes to schedule the pods according to our strategy.
 
-There are still other best practices or deployment instructions for your organization. Like coding style, normally, we want to make sure everyone in our organization follow these instructions. So, an automation check is required in CI/CD process. 
+There are still other best practices or deployment instructions for your organization. Like coding style, normally, we want to make sure everyone in our organization follows these instructions. So, an automation check is required in CI/CD process. 
 This project is the implementation of an extensible kubernetes deployment configuration check tool.
 
 
